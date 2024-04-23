@@ -1,0 +1,20 @@
+{
+  "name": "encoder",
+  "version": "1.0.0",
+  "description": "ffmpg decoder",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon node ."
+  },
+  "author": "fantastic four",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.556.0",
+    "bullmq": "^5.7.3",
+    "dotenv": "^16.4.5",
+    "ffmpeg-static": "^5.2.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "nodemon": "^3.1.0"
+  }
+}
