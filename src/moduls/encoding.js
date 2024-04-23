@@ -32,19 +32,24 @@ const DownloadVideo = async (filePath, s3Client, key) => {
             const writer = fs.createWriteStream(filePath + key);
             Body.pipe(writer);
             await new Promise((resolve, reject) => {
-                writer.on('finish', resolve);
+                writer.on('finish', async () => {
+                    console.log('File saved successfully!');
+                    // Call processing function after download completes
+                    await ffnpegProcess(filePath + key, "output_dash/output.mpd");
+                    resolve();
+                });
                 writer.on('error', reject);
             });
-            console.log('File saved successfully!');
-            // Call conversion function after download completes
-            await ffnpegProcess(filePath + key, "output_dash/output.mpd");
         } else {
             console.log("file already available")
+            // If file already exists, start processing immediately
+            await ffnpegProcess(filePath + key, "output_dash/output.mpd");
         }
     } catch (error) {
         console.error("Error:", error);
     }
 }
+
 
 const ffnpegProcess = async (inputPath, outputPath) => {
     try {
